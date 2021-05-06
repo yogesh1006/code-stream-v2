@@ -1,0 +1,52 @@
+.playlist-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  /* margin-bottom: 4rem; */
+}
+
+.playlist-img-container {
+  width: 100%;
+  height: max-content;
+  position: relative;
+}
+
+.playlist-container .card-title {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.empty-videos {
+  width: 250px;
+  height: 140px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: #252525;
+}
+
+.empty-videos span {
+  margin-left: 1rem;
+}
+
+.playlist-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 55%;
+  background-color: #000000bf;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.playlist-overlay svg {
+  font-size: 1.5rem;
+}
+.playlist-videos .video-list {
+  margin-top: 1rem;
+}
+
