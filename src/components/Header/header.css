@@ -8,7 +8,18 @@
     position: fixed;
     width: 100%;
     top: 0;
+    right: 0;
+    left: 0;
     padding: 0 .5rem;
     height: 3.2rem;
     z-index: 10;
+}
+.header-logo{
+  text-decoration: none;
+  color: green;
+}
+.login{
+    margin-right: 2rem;
+    text-decoration: none;
+    color: #fff;
 }

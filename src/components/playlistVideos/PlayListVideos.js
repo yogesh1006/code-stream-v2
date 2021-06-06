@@ -1,8 +1,6 @@
-import { useParams ,Link} from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { videos } from "../../data";
-// import VideoList from "../VideoList/VideoList";
 import { useData } from "../../dataContext/DataContext";
-// import "./playlist-videos.css";
 
 export default function PlayListVideos() {
   const { playlistId } = useParams();

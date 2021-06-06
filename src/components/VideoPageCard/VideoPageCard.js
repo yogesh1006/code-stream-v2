@@ -5,42 +5,51 @@ import ThumbUpOutlinedIcon from "@material-ui/icons/ThumbUpOutlined";
 import { useState, useEffect } from "react";
 import { useData } from "../../dataContext/DataContext";
 import "./videoPageCard.css";
-import VideoCard from "../videoCard/VideoCard";
 import Modal from "react-modal";
 import PlayListForm from "../Playlist/PlayListForm";
-
-Modal.setAppElement('#root')
+import VideoList from "../VideoList/VideoList";
+import axios from "axios";
+import { useParams } from "react-router";
+import { API } from "../../backend";
+import { toast } from "react-toastify";
+Modal.setAppElement("#root");
 
 function VideoPageCard({ videoId }) {
   const { state, dispatch } = useData();
 
   const [isPlaylistModalOpen, setIsPlaylistModalOpen] = useState(false);
 
+  const { id } = useParams();
+
   const togglePlaylistModal = () => {
     setIsPlaylistModalOpen(!isPlaylistModalOpen);
   };
 
-  const {
-    title,
-    channelImageUrl,
-    description,
-    channelName,
-    likes,
-  } = videos.find((video) => video.id === videoId);
+  const { title, channelImageUrl, description, channelName, likes } =
+    videos.find((video) => video.id === videoId);
 
-  let videoLikeHandler = (videoId) => {
-    let existInLikes = false;
-    if (state.likedVideos.length > 0) {
-      state.likedVideos.map((item) => {
-        if (item.id === videoId) {
-          existInLikes = true;
+  let videoLikeHandler = (id) => {
+    axios
+      .post(
+        `${API}/api/add_to_liked_videos`,
+        { videoId: id },
+        {
+          headers: {
+            authorization: localStorage.getItem("jwt"),
+          },
         }
-        return item;
+      )
+      .then((res) => {
+        console.log(res.data);
+        toast.success(res.data.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       });
-    }
-    if (!existInLikes) {
-      dispatch({ type: "TOGGLE_LIKED_VIDEO", payload: videoId });
-    }
   };
 
   useEffect(() => {
@@ -49,14 +58,14 @@ function VideoPageCard({ videoId }) {
   }, [videoId]);
 
   const customStyles = {
-    content : {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)'
-    }
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+    },
   };
 
   return (
@@ -68,7 +77,7 @@ function VideoPageCard({ videoId }) {
               width="450"
               height="350"
               className="responsive-iframe"
-              src={"https://www.youtube.com/embed/" + videoId}
+              src={"https://www.youtube.com/embed/" + id}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -92,7 +101,7 @@ function VideoPageCard({ videoId }) {
           <div className="video-actions">
             <div
               className="video-action-item"
-              onClick={() => videoLikeHandler(videoId)}
+              onClick={() => videoLikeHandler(id)}
             >
               <ThumbUpOutlinedIcon /> <span>{likes}</span>
             </div>
@@ -105,11 +114,11 @@ function VideoPageCard({ videoId }) {
       </div>
       <div className="video-page-suggestion">
         <h3 className="video-suggestion-heading">Next Videos</h3>
-        {videos.map((video) => {
-          if (video.id === videoId) {
+        {state.videolist.map((video) => {
+          if (video.id === id) {
             return null;
           }
-          return <VideoCard video={video} key={video.id} />;
+          return <VideoList video={video} key={video.id} />;
         })}
       </div>
       <Modal
@@ -117,9 +126,7 @@ function VideoPageCard({ videoId }) {
         isOpen={isPlaylistModalOpen}
         onRequestClose={togglePlaylistModal}
       >
-        <PlayListForm state={state}
-          dispatch={dispatch}
-          streamVideo={videoId}/>
+        <PlayListForm state={state} dispatch={dispatch} streamVideo={videoId} />
       </Modal>
     </div>
   );

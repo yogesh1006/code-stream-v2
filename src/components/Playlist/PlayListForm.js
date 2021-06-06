@@ -1,36 +1,45 @@
-import React,{useRef} from "react";
-import './playlistform.css'
-// import { useData } from "../../dataContext/DataContext";
+import axios from "axios";
+import React, { useRef } from "react";
+import "./playlistform.css";
+import { API } from "../../backend";
 
-function PlayListForm({state,dispatch,streamVideo}) {
-    // const {state,dispatch}=useData();
+function PlayListForm({ state, dispatch, streamVideo }) {
+  // const {state,dispatch}=useData();
 
-    const handlePlaylistToggle = (playlistId, isVideoInPlaylist) => {
-        dispatch({
-          type: isVideoInPlaylist
-            ? "REMOVE_FROM_PLAYLIST"
-            : "ADD_TO_PLAYLIST",
-          payload: {
-            videoId: streamVideo,
-            playlistId: playlistId,
+  const handlePlaylistToggle = (playlistId, isVideoInPlaylist) => {
+    dispatch({
+      type: isVideoInPlaylist ? "REMOVE_FROM_PLAYLIST" : "ADD_TO_PLAYLIST",
+      payload: {
+        videoId: streamVideo,
+        playlistId: playlistId,
+      },
+    });
+  };
+
+  const playListNameRef = useRef();
+
+  const createPlaylistHandler = () => {
+    const playlistName = playListNameRef.current.value;
+    axios
+      .post(
+        `${API}/api/create_playlist`,
+        { playlistName: playlistName },
+        {
+          headers: {
+            authorization: localStorage.getItem("jwt"),
           },
-        });
-      };
-    
-      const playListNameRef = useRef();
-    
-      const createPlaylistHandler = () => {
-        const playlistName = playListNameRef.current.value;
-        if (playlistName) {
-          dispatch({
-            type:"CREATE_PLAYLIST",
-            payload: {
-              playlistName: playlistName,
-            },
-          });
-          playListNameRef.current.value = "";
         }
-      };
+      )
+      .then((res) => {
+        console.log(res.data);
+        dispatch({
+          type: "CREATE_PLAYLIST",
+          payload: res.data,
+        });
+      });
+
+    playListNameRef.current.value = "";
+  };
 
   return (
     <div className="playlist-form">
@@ -39,7 +48,7 @@ function PlayListForm({state,dispatch,streamVideo}) {
         {state.playlist.map((list) => {
           const isVideoPartOfPlaylist = list.videos.includes(streamVideo);
           return (
-            <li key={list.id} style={{listStyle:"none"}}>
+            <li key={list.id} style={{ listStyle: "none" }}>
               <label>
                 <input
                   type="checkbox"
@@ -62,7 +71,7 @@ function PlayListForm({state,dispatch,streamVideo}) {
           placeholder="Create Playlist"
           className="input-playlist"
         />
-        <span className="btn-playlist"  onClick={createPlaylistHandler}>
+        <span className="btn-playlist" onClick={createPlaylistHandler}>
           CREATE
         </span>
       </div>

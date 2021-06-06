@@ -1,17 +1,15 @@
 export function reducerFunction(state, action) {
+  // const createPlaylist = (state, { playlistName }) => {
+  //   const stateCopy = { ...state };
 
+  //   stateCopy.playlist = state.playlist.concat({
+  //     id: state.playlist.length + 1 || 1,
+  //     name: playlistName,
+  //     videos: [],
+  //   });
 
-  const createPlaylist = (state, { playlistName }) => {
-    const stateCopy = { ...state };
-
-    stateCopy.playlist = state.playlist.concat({
-      id: state.playlist.length + 1 || 1,
-      name: playlistName,
-      videos: [],
-    });
-
-    return stateCopy;
-  };
+  //   return stateCopy;
+  // };
 
   const addToPlaylist = (state, { playlistId, videoId }) => {
     const stateCopy = { ...state };
@@ -48,8 +46,16 @@ export function reducerFunction(state, action) {
   };
 
   switch (action.type) {
+    case "SET_VIDEOLIST":
+      return {
+        videolist: action.payload,
+        likedVideos: state.likedVideos,
+        history: state.history,
+        playlist: state.playlist,
+      };
     case "TOGGLE_LIKED_VIDEO":
       return {
+        videolist: state.videolist,
         likedVideos: [...state.likedVideos, action.payload],
         history: state.history,
         playlist: state.playlist,
@@ -59,7 +65,10 @@ export function reducerFunction(state, action) {
       return updateHistory(state, action.payload);
 
     case "CREATE_PLAYLIST":
-      return createPlaylist(state, action.payload);
+      return {
+        ...state,
+        playlist: [...state.playlist, action.payload],
+      };
 
     case "ADD_TO_PLAYLIST":
       return addToPlaylist(state, action.payload);

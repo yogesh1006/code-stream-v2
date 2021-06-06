@@ -1,7 +1,7 @@
 import { useData } from "../../dataContext/DataContext";
 import { videos } from "../../data";
 import { Link } from "react-router-dom";
-import "../videoCard/videocard.css";
+import "./history.css";
 
 export default function History() {
   const { state } = useData();
