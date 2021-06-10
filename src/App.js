@@ -6,7 +6,7 @@ import VideoList from './components/VideoList/VideoList';
 import VideoPage from './components/VideoPage/VideoPage';
 import LikeVideo from './components/LikedVideos/LikedVideo'
 import History from './components/History/History';
-import PlaylistPage from './components/PlaylistPage/PlayListPage';
+import PlaylistPage from './components/playlist/PlaylistPage/PlayListPage'
 import PlayListVideos from './components/playlistVideos/PlayListVideos';
 import Signin from './components/signin/Signin';
 import { ToastContainer } from "react-toastify";

@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { videos } from "../../data";
+import { videos } from "../../../data";
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import "./playlistPage.css";
-import { useData } from "../../dataContext/DataContext";
+import { useData } from "../../../dataContext/DataContext";
 
 export default function PlayListPage() {
   const {state}=useData();

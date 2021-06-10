@@ -11,12 +11,7 @@ const initialState = {
   videolist: [],
   likedVideos: [],
   history: [],
-  playlist: [
-    {
-      name: "My playlist 1",
-      videos: ["2WJL19wDH68"],
-    },
-  ],
+  playlist: [],
 };
 
 export function DataProvider({ children }) {
