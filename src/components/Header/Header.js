@@ -1,14 +1,17 @@
 import { NavLink} from "react-router-dom";
 import { toast } from "react-toastify";
+import { useAuth } from "../../contexts/authContext";
 import './header.css'
 
 
 
 export default function Header() {
 
-  
+   const {isUserLoggedIn, setLogin} = useAuth()
+
   const logoutHandler = () => {
-    localStorage.getItem("jwt") && localStorage.clear();
+    localStorage.clear();
+    setLogin(false);
     toast.error("Logout Successfully", {
       position: toast.POSITION.TOP_RIGHT,
     });
@@ -23,7 +26,7 @@ export default function Header() {
         Happy Tube
       </div>
     </NavLink>
-     {localStorage.getItem("jwt") ? (<NavLink to="/" className="login" onClick={logoutHandler}>Logout</NavLink>) :
+     { isUserLoggedIn ? (<NavLink to="/" className="login" onClick={() =>logoutHandler()}>Logout</NavLink>) :
      
      (<NavLink to='/login' className="login">Login</NavLink>)
 

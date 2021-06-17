@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./VideoList.css";
 import axios from "axios";
 import { API } from "../../backend";
-import { useData } from "../../dataContext/DataContext";
+import { useData } from "../../contexts/userDataContext";
 import { Link } from "react-router-dom";
 
 function VideoList() {

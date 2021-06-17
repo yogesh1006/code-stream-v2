@@ -16,7 +16,9 @@
 }
 .header-logo{
   text-decoration: none;
-  color: green;
+  color: white;
+  font-weight:500;
+  
 }
 .login{
     margin-right: 2rem;

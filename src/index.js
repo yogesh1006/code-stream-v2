@@ -1,19 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {BrowserRouter as Router} from 'react-router-dom'
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import {DataProvider} from './dataContext/DataContext'
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
+import App from "./App";
+import { AuthProvider} from "./contexts/authContext";
+import { UserDataProvider} from "./contexts/userDataContext";
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <DataProvider>
-    <Router>
-    <App />
-    </Router>
-    </DataProvider>
+      <UserDataProvider>
+        <AuthProvider>
+          <Router>
+            <App />
+          </Router>
+        </AuthProvider>
+      </UserDataProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
-reportWebVitals();

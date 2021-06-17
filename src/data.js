@@ -68,5 +68,16 @@ export const videos= [
       published_date: "SEP 18, 2019",
       likes:13000
     },
+    {
+      id: "tJhA0DrH5co",
+      title: "Debouncing vs Throttling | Walmart UI Interview Question",
+      channelImageUrl:"https://yt3.ggpht.com/ytc/AAUvwnin7zykyU20uPntBE42IfNsj9SAL7tKeE7eiNuUYA=s88-c-k-c0x00ffffff-no-rj",
+      description:"Debouncing and Throttling Interview Questions",
+      channelName: "Akshay Saini",
+      thumbnailImgUrl:"https://i.ytimg.com/vi/tJhA0DrH5co/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&amp;rs=AOn4CLDi9okq5qLunmUEJ3YjD9irBEAPwg",
+      published_date: "JUN 16, 2019",
+      likes:13000
+    }
     ];
-    
+
+

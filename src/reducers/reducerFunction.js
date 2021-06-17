@@ -1,4 +1,4 @@
-export function reducerFunction(state, action) {
+export  function reducerFunction(state, action) {
   // const createPlaylist = (state, { playlistName }) => {
   //   const stateCopy = { ...state };
 

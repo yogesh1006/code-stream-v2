@@ -4,8 +4,12 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { API } from "../../backend";
 import "./signin.css";
+import {useAuth} from '../../contexts/authContext'
+
 
 const Signin = (props) => {
+     
+    const {setUserName,isUserLoggedIn,setLogin} = useAuth();  
 
     const [values, setValues] = useState({
         email: "",
@@ -21,9 +25,11 @@ const Signin = (props) => {
         e.preventDefault();
         setValues({ ...values });
     
-        axios.post(`${API}/auth/login`,values).then((response) => {
+        axios.post(`${API}/auth/login`,values)
+        .then((response) => {
+          console.log(response);
+
           let data= response.data.data
-    
           if(data.token){
     
             localStorage.setItem("jwt",data.token)
@@ -31,6 +37,7 @@ const Signin = (props) => {
           toast.success(response.data.message, {
             position: toast.POSITION.TOP_RIGHT
           });
+          setLogin(!isUserLoggedIn)
           setValues({
             email: "",
             password: "",
@@ -51,7 +58,7 @@ const Signin = (props) => {
     <div className="loginform">
       <form >
         <h1 className="text-center">
-          <h3>WELCOME BACK</h3>
+          <strong>WELCOME BACK</strong>
         </h1>
         <div className="text-center">
           <h3>Login to your account</h3>
